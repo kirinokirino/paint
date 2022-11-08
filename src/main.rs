@@ -17,7 +17,7 @@ use common::{Size, Vec2, constrain};
 use sprite::Sprite;
 use clock::Clock;
 
-const RESOLUTION: Size = Size::new(100, 200);
+const RESOLUTION: Size = Size::new(400, 200);
 
 fn main() {
     let config = Config {
