@@ -11,16 +11,6 @@ impl Vec2 {
     }
 }
 
-#[must_use]
-pub fn min(of: i32, or: i32) -> i32 {
-    of.min(or)
-}
-
-#[must_use]
-pub fn max(of: i32, or: i32) -> i32 {
-    of.max(or)
-}
-
 pub fn constrain<T: PartialOrd>(this: T, min: T, max: T) -> T {
     assert!(min < max);
     if this < min {

@@ -1,4 +1,4 @@
-use crate::common::{max, min, Size, Vec2};
+use crate::common::{Size, Vec2};
 use simple_pixels::{rgb::RGBA8, Context};
 
 pub struct Sprite {
@@ -23,11 +23,9 @@ impl Sprite {
         let screen_size = Size::new(screen_width, screen_height);
         let screen_origin = Vec2::new(0.0, 0.0);
 
-        let visible_from_x = max(screen_origin.x as i32, self.origin.x as i32);
-        let visible_to_x = min(
-            self.size.width as i32 + self.origin.x as i32,
-            screen_size.width as i32 + screen_origin.x as i32,
-        );
+        let visible_from_x = (screen_origin.x as i32).max(self.origin.x as i32);
+        let visible_to_x = (self.size.width as i32 + self.origin.x as i32)
+            .min(screen_size.width as i32 + screen_origin.x as i32);
         let visible_width = visible_to_x - visible_from_x;
         let sprite_offset_x = if self.origin.x < screen_origin.x {
             -(self.origin.x - screen_origin.x) as i32
@@ -35,11 +33,9 @@ impl Sprite {
             0
         };
 
-        let visible_from_y = max(screen_origin.y as i32, self.origin.y as i32);
-        let visible_to_y = min(
-            self.size.height as i32 + self.origin.y as i32,
-            screen_size.height as i32 + screen_origin.y as i32,
-        );
+        let visible_from_y = (screen_origin.y as i32).max(self.origin.y as i32);
+        let visible_to_y = (self.size.height as i32 + self.origin.y as i32)
+            .min(screen_size.height as i32 + screen_origin.y as i32);
         let visible_height = visible_to_y - visible_from_y;
         let sprite_offset_y = if self.origin.y < screen_origin.y {
             -(self.origin.y - screen_origin.y) as i32
@@ -57,8 +53,8 @@ impl Sprite {
         }
 
         ctx.draw_pixels(
-            max(screen_origin.x as i32, self.origin.x as i32),
-            max(screen_origin.y as i32, self.origin.y as i32),
+            (screen_origin.x as i32).max(self.origin.x as i32),
+            (screen_origin.y as i32).max(self.origin.y as i32),
             visible_width.try_into().unwrap(),
             visible_height.try_into().unwrap(),
             &visible_pixels,

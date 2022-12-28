@@ -43,13 +43,12 @@ struct Game {
 impl Game {
     pub fn new() -> Self {
         let cursor_width = 10;
-        let mut pixels = vec![RGBA8::new(0,0,0,0); cursor_width * cursor_width];
+        let mut pixels = vec![RGBA8::new(0, 0, 0, 0); cursor_width * cursor_width];
         for y in 0..cursor_width {
             for x in 0..cursor_width {
                 let i = y * cursor_width + x;
                 let pixel = match (x, y) {
-                    (0..=5, 0) => RGBA8::new(255, 255, 255, 255),
-                    (0, 0..=5) => RGBA8::new(255, 255, 255, 255),
+                    (0..=5, 0) | (0, 0..=5) => RGBA8::new(255, 255, 255, 255),
                     _ => {
                         if x == y {
                             RGBA8::new(255, 255, 255, 255)
@@ -61,7 +60,11 @@ impl Game {
                 pixels[i] = pixel;
             }
         }
-        let cursor = Sprite::new(Vec2::new(10.0, 10.0), Size::new(cursor_width as u32, cursor_width as u32), pixels);
+        let cursor = Sprite::new(
+            Vec2::new(10.0, 10.0),
+            Size::new(cursor_width as u32, cursor_width as u32),
+            pixels,
+        );
         let canvas_buffer =
             vec![RGBA8::default(); RESOLUTION.width as usize * RESOLUTION.height as usize];
 
