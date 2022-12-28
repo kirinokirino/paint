@@ -1,4 +1,3 @@
-
 #[derive(Debug, Copy, Clone)]
 pub struct Vec2 {
     pub x: f32,
@@ -44,4 +43,3 @@ impl Size {
         Self { width, height }
     }
 }
-
